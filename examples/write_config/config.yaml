@@ -1,0 +1,10 @@
+version: 0.1.0
+aes_key: BpLnfgDsc2WD8F2q
+center_host: 127.0.0.1
+center_port: 8888
+node_id: NfHK5a84jjJkwzDk
+heart_internal: 3
+region: bj
+type:
+- sev
+- agent

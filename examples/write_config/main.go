@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"github.com/zhangdapeng520/zdpgo_yaml"
 	"io/ioutil"
@@ -25,31 +24,21 @@ func main() {
 		err    error
 	)
 
-	config, err = GetConfig("examples/write_config/config.yaml", config)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("配置对象：", config)
-}
-
-func GetConfig(configPath string, config *Config) (*Config, error) {
+	configPath := "examples/write_config/config.yaml"
 	y := zdpgo_yaml.New()
 
 	//读取yaml文件到缓存中
 	c, err := ioutil.ReadFile(configPath)
 	if err != nil {
-		return nil, err
+		fmt.Println("读取配置文件失败：", err)
+		return
 	}
 
 	// yaml文件内容影射到结构体中
 	err = y.Unmarshal(c, &config)
 	if err != nil {
-		return nil, err
-	}
-
-	// 通过访问结构体成员获取yaml文件中对应的key-value
-	if config.CenterHost == "" {
-		return nil, errors.New("center的host不能为空")
+		fmt.Println("解析配置文件失败：", err)
+		return
 	}
 
 	// 处理version
@@ -90,8 +79,9 @@ func GetConfig(configPath string, config *Config) (*Config, error) {
 	// 保存
 	err = y.Save(configPath, config)
 	if err != nil {
-		return nil, err
+		fmt.Print("保存配置文件失败：", err)
+		return
 	}
 
-	return config, nil
+	fmt.Println("保存配置成功")
 }

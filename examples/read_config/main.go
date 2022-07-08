@@ -22,7 +22,7 @@ func main() {
 	var c conf
 
 	// 读取配置
-	y.ReadConfig("test.yaml", &c)
+	y.ReadConfig("examples/read_config/test.yaml", &c)
 
 	// 查看读取结果
 	fmt.Println("读取配置：", c.Host, c.User, c.Pwd, c.Dbname)
