@@ -1,4 +1,4 @@
-package yaml
+package zdpgo_yaml
 
 const (
 	// The size of the input raw buffer.

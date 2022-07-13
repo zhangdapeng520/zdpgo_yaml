@@ -1,11 +1,11 @@
-package yaml
+package zdpgo_yaml
 
 import (
 	"bytes"
 	"fmt"
 )
 
-// Flush the buffer if needed.
+// flush 刷新buffer
 func flush(emitter *yaml_emitter_t) bool {
 	if emitter.buffer_pos+5 >= len(emitter.buffer) {
 		return yaml_emitter_flush(emitter)
@@ -13,7 +13,7 @@ func flush(emitter *yaml_emitter_t) bool {
 	return true
 }
 
-// Put a character to the output buffer.
+// put 加入一个字符到要输出的buffer
 func put(emitter *yaml_emitter_t, value byte) bool {
 	if emitter.buffer_pos+5 >= len(emitter.buffer) && !yaml_emitter_flush(emitter) {
 		return false
@@ -24,7 +24,7 @@ func put(emitter *yaml_emitter_t, value byte) bool {
 	return true
 }
 
-// Put a line break to the output buffer.
+// put_break 加入一个换行符到要输出的buffer
 func put_break(emitter *yaml_emitter_t) bool {
 	if emitter.buffer_pos+5 >= len(emitter.buffer) && !yaml_emitter_flush(emitter) {
 		return false
@@ -48,7 +48,7 @@ func put_break(emitter *yaml_emitter_t) bool {
 	return true
 }
 
-// Copy a character from a string into buffer.
+// write 从字符串复制字符到buffer
 func write(emitter *yaml_emitter_t, s []byte, i *int) bool {
 	if emitter.buffer_pos+5 >= len(emitter.buffer) && !yaml_emitter_flush(emitter) {
 		return false
@@ -76,7 +76,7 @@ func write(emitter *yaml_emitter_t, s []byte, i *int) bool {
 	return true
 }
 
-// Write a whole string into buffer.
+// write_all 将字符串写入到buffer
 func write_all(emitter *yaml_emitter_t, s []byte) bool {
 	for i := 0; i < len(s); {
 		if !write(emitter, s, &i) {
@@ -86,7 +86,7 @@ func write_all(emitter *yaml_emitter_t, s []byte) bool {
 	return true
 }
 
-// Copy a line break character from a string into buffer.
+// write_break 从字符串复制换行符到buffer
 func write_break(emitter *yaml_emitter_t, s []byte, i *int) bool {
 	if s[*i] == '\n' {
 		if !put_break(emitter) {
@@ -103,14 +103,14 @@ func write_break(emitter *yaml_emitter_t, s []byte, i *int) bool {
 	return true
 }
 
-// Set an emitter error and return false.
+// yaml_emitter_set_emitter_error 设置一个提交错误并返回false
 func yaml_emitter_set_emitter_error(emitter *yaml_emitter_t, problem string) bool {
 	emitter.error = yaml_EMITTER_ERROR
 	emitter.problem = problem
 	return false
 }
 
-// Emit an event.
+// 提交一个事件
 func yaml_emitter_emit(emitter *yaml_emitter_t, event *yaml_event_t) bool {
 	emitter.events = append(emitter.events, *event)
 	for !yaml_emitter_need_more_events(emitter) {

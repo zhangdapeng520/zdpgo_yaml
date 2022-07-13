@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/zhangdapeng520/zdpgo_yaml"
 	"io/ioutil"
+
+	"github.com/zhangdapeng520/zdpgo_yaml"
 )
 
 // Config 类型里的属性，全是配置文件里的属性

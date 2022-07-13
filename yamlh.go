@@ -1,4 +1,4 @@
-package yaml
+package zdpgo_yaml
 
 import (
 	"fmt"
