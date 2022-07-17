@@ -16,14 +16,11 @@ type conf struct {
 }
 
 func main() {
-	// 创建yaml对象
-	y := zdpgo_yaml.New()
-
 	// 创建配置对象
 	var c conf
 
 	// 读取配置
-	y.ReadConfig("examples/read_config/test.yaml", &c)
+	zdpgo_yaml.ReadConfig("examples/read_config/test.yaml", &c)
 
 	// 查看读取结果
 	fmt.Println("读取配置：", c.Host, c.User, c.Pwd, c.Dbname)

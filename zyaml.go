@@ -17,6 +17,18 @@ func (y *Yaml) ReadConfig(configPath string, configObj interface{}) error {
 	return y.Read(configPath, configObj)
 }
 
+func ReadConfig(configPath string, configObj interface{}) error {
+	// 读取配置文件
+	yamlFile, err := ioutil.ReadFile(configPath)
+	if err != nil {
+		return err
+	}
+
+	// 解析配置文件
+	err = Unmarshal(yamlFile, configObj)
+	return err
+}
+
 // Read 读取yaml文件并映射到结构体
 func (y *Yaml) Read(configPath string, configObj interface{}) error {
 	// 读取配置文件
